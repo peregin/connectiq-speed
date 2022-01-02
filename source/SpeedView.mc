@@ -1,5 +1,20 @@
 using Toybox.WatchUi;
 
+/**
+ * 
+ * Garmin Edge 820
+ * ---------------
+ * Screen Size: 2.3"
+ * Resolution: 200px x 265px
+ * 16-bit Color Display
+ *
+ * Garmin Edge 830
+ * ---------------
+ * Screen Size: 2.6"
+ * Resolution: 246px x 322px
+ * 16-bit Color Display
+ * Data field sizes: 122x63 ,246x126, 246x62 
+ */
 class SpeedView extends WatchUi.DataField {
 
     hidden const CENTER = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
@@ -15,6 +30,7 @@ class SpeedView extends WatchUi.DataField {
     hidden var width2 = width / 2; // it is recalculated in onLayout
     hidden var y = 0;
     hidden var height = 50; // it is recalculated in onLayout
+    hidden var height2 = height / 2; // it is recalculated in onLayout
     hidden var isWide = false; // when the data field is wider than 150 pixels than the layout will be different
     hidden var isTall = false; // when the data field is taller than 150 pixels -"-
 
@@ -32,7 +48,7 @@ class SpeedView extends WatchUi.DataField {
 
     function onLayout(dc) {
         calculateSize(dc);
-        //System.println("size is [" + width + "," + height + "] wide = " + isWide);
+        System.println("size is [" + width + "," + height + "] wide = " + isWide);
 
         onUpdate(dc);
     }
@@ -63,9 +79,9 @@ class SpeedView extends WatchUi.DataField {
 
         // current heart rate, green if below average, orange if is above average
         var text = textOfDecimal(currentSpeed);
-        var font = Graphics.FONT_NUMBER_MILD;
+        var font = height > 100 ? Graphics.FONT_SYSTEM_NUMBER_THAI_HOT : Graphics.FONT_SYSTEM_NUMBER_HOT;
         var textSize = dc.getTextDimensions(text, font);
-        dc.drawText(width2, 0, font, text, CENTER);
+        dc.drawText(width2, height / 2, font, text, CENTER);
 
         // if (curHr > avgHr + tolerance && curHr > 0) {
         //     dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
@@ -95,7 +111,7 @@ class SpeedView extends WatchUi.DataField {
     }
 
     function textOfDecimal(n) {
-        return n > 0 ? n.format("%.1f") : "--";
+        return n > 0 ? n.format("%.1f") : "--.-";
     }
 
     function setupColors() {
@@ -114,13 +130,12 @@ class SpeedView extends WatchUi.DataField {
     }
 
     function calculateSize(dc) {
-        x = 0;
         width = dc.getWidth();
-        y = 0;
         height = dc.getHeight();
 
         width2 = width / 2;
         isWide = width > 150;
+        height2 = height / 2;
         isTall = height > 150;
     }
 

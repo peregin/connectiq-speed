@@ -1,19 +1,7 @@
 using Toybox.Application;
 
 /**
- * Data field to show the current and average speed.heart rate, and have a colourful bar on the top
- *
- * Garmin Edge 820
- * ---------------
- * Screen Size: 2.3"
- * Resolution: 200px x 265px
- * 16-bit Color Display
- *
- * Garmin Edge 830
- * ---------------
- * Screen Size: 2.6"
- * Resolution: 246px x 322px
- * 16-bit Color Display
+ * Data field to show the current and average speed.
  */
 class SpeedApp extends Application.AppBase {
 

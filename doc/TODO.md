@@ -1,5 +1,6 @@
 ToDo
 ---
+- convert metric vs imperial based on the unit type
 - cover image
 
 Done
